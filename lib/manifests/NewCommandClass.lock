@@ -1,0 +1,16 @@
+<?php
+
+use Console\Command;
+
+class #CLASS_NAME# extends Command
+{
+    public function query()
+    {
+
+    }
+
+    public function launch()
+    {
+
+    }
+}

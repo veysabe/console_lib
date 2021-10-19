@@ -1,0 +1,12 @@
+{
+  "register": {
+    "className": "Register",
+    "description": "Register new command",
+    "path": "lib\/classes\/Register.php"
+  },
+  "command_name": {
+    "className": "Command_name",
+    "description": "Description",
+    "path": "lib\/classes\/Command_name.php"
+  }
+}
