@@ -4,10 +4,9 @@ use Console\Command;
 
 class Command_name extends Command
 {
-    public function query()
-    {
-
-    }
+    public $command;
+    public $arguments;
+    public $parameters;
 
     public function launch()
     {

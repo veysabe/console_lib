@@ -5,15 +5,15 @@ namespace Console;
 class Init
 {
     /**
-     * Список существующих команд. Команды, их описания и определения
-     * хранятся в файле command_manifest.json
+     * List of existing commands.
+     * Commands, their descriptions and definitions are stored in the command_manifest.json file
      *
      * @var mixed
      */
-    public mixed $commands;
+    public $commands;
 
     /**
-     * Определение введенной команды, подключение ее манифеста и инициализация класса
+     * Defining the entered command, connecting its manifest and initializing the class
      *
      * @param $argv
      * @param $argc
@@ -33,7 +33,7 @@ class Init
     }
 
     /**
-     * Регистрация всех классов, зарегистрированных в манифесте команд
+     * Registration of all classes registered in the team manifest
      */
     public function requireCommands()
     {

@@ -4,10 +4,6 @@ use Console\Command;
 
 class Register extends Command
 {
-    public function query()
-    {
-    }
-
     public function launch()
     {
         $com_manifest = json_decode(file_get_contents(__DIR__ . '/../command_manifest.json'), true);
@@ -21,7 +17,7 @@ class Register extends Command
             echo "Command Is Already Registered" . "\n";
             die();
         }
-        if (!$com_name) {
+        if (!$com_name || !strlen($com_name)) {
             echo "Name is required" . "\n";
             die();
         }

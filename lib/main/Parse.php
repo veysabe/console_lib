@@ -5,30 +5,32 @@ namespace Console;
 class Parse
 {
     /**
-     * Список введенных аргументов
+     * List of arguments
      * @var mixed
      */
-    public mixed $arguments;
+    public $arguments;
     /**
-     * Список введенных опций (параметров)
+     * List of options (parameters)
      * @var mixed
      */
-    public mixed $parameters;
+    public $parameters;
 
     /**
-     * Определение и выполнение функции для парсинга и добавления аргументов/параметров вызова команды
+     * Defining and executing a function for parsing and adding arguments/parameters
      * @param $exec
      */
     public function __construct($exec)
     {
         foreach ($exec as $item) {
             $func = self::determine($item);
-            $this->$func($item);
+            if ($func) {
+                $this->$func($item);
+            }
         }
     }
 
     /**
-     * Определение функции
+     * Function Determine
      * @param $line
      * @return string
      */
@@ -36,16 +38,24 @@ class Parse
     {
         switch ($line[0]) {
             case '{':
-                return 'parseArgument';
+                if ($line[strlen($line) - 1] == '}') {
+                    return 'parseArgument';
+                } else {
+                    return false;
+                }
             case '[':
-                return 'parseParameter';
+                if ($line[strlen($line) - 1] == ']') {
+                    return 'parseParameter';
+                } else {
+                    return false;
+                }
             default:
-                return 'addArgument';
+                return false;
         }
     }
 
     /**
-     * Функция добавления аргумента
+     * Argument adding function
      * @param $arg
      */
     public function addArgument($arg)
@@ -54,7 +64,7 @@ class Parse
     }
 
     /**
-     * Функция парсинга аргумента
+     * Argument parsing function
      * @param $line
      */
     public function parseArgument($line)
@@ -64,7 +74,7 @@ class Parse
     }
 
     /**
-     * Функция парсинга и добавления параметра
+     * Parameter parsing and adding function
      * @param $line
      */
     public function parseParameter($line)
@@ -75,15 +85,29 @@ class Parse
         $value = $tmp[1];
         if ($value[0] == '{' && $value[strlen($value) - 1] == '}') {
             $value = substr($value, 1, strlen($value) - 2);
+            if (stristr($value, ',')) {
+                $value = explode(',', $value);
+            }
         }
         if (isset($this->parameters[$name])) {
             if (is_array($this->parameters[$name])) {
-                $this->parameters[$name][] = $value;
+                if (is_array($value)) {
+                    $this->parameters[$name] += $value;
+                } else {
+                    $this->parameters[$name][] = $value;
+                }
             } else {
-                $this->parameters[$name] = [
-                    $this->parameters[$name],
-                    $value
-                ];
+                if (is_array($value)) {
+                    $this->parameters[$name] = [
+                        $this->parameters[$name]
+                    ];
+                    $this->parameters[$name] += $value;
+                } else {
+                    $this->parameters[$name] = [
+                        $this->parameters[$name],
+                        $value
+                    ];
+                }
             }
         } else {
             $this->parameters[$name] = $value;
