@@ -21,6 +21,9 @@ abstract class Command implements CommandInterface
             $this->help();
             die();
         }
+    }
+
+    public function init() {
         $this->launch();
     }
 

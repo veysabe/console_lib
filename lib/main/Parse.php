@@ -38,17 +38,9 @@ class Parse
     {
         switch ($line[0]) {
             case '{':
-                if ($line[strlen($line) - 1] == '}') {
-                    return 'parseArgument';
-                } else {
-                    return false;
-                }
+                return ($line[strlen($line) - 1] == '}') ? 'parseArgument' : false;
             case '[':
-                if ($line[strlen($line) - 1] == ']') {
-                    return 'parseParameter';
-                } else {
-                    return false;
-                }
+                return ($line[strlen($line) - 1] == ']') ? 'parseParameter' : false;
             default:
                 return false;
         }

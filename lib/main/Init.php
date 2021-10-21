@@ -18,7 +18,7 @@ class Init
      * @param $argv
      * @param $argc
      */
-    public function __construct($argv, $argc)
+    public function __construct($argv)
     {
         $exec = $argv;
         $this->commands = json_decode(file_get_contents(__DIR__ . '/../command_manifest.json'), true);
@@ -26,7 +26,8 @@ class Init
         if (isset($this->commands[$argv[1]])) {
             unset($exec[0], $exec[1]);
             $parse = new Parse($exec);
-            new $this->commands[$argv[1]]['className'](['value' => $argv[1], 'description' => $this->commands[$argv[1]]['description']], $parse->parameters, $parse->arguments);
+            $commandClass = new $this->commands[$argv[1]]['className'](['value' => $argv[1], 'description' => $this->commands[$argv[1]]['description']], $parse->parameters, $parse->arguments);
+            $commandClass->init();
         } else {
             echo 'Command Not Registered' . "\n";
         }

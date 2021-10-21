@@ -21,7 +21,11 @@ class Register extends Command
             echo "Name is required" . "\n";
             die();
         }
-        $className = ucfirst($com_name);
+        $com_name_arr = explode('_', $com_name);
+        $className = '';
+        foreach ($com_name_arr as $com_name_arrum) {
+            $className .= ucfirst($com_name_arrum);
+        }
         $classPath = "classes/$className.php";
         $manifest = file_get_contents(__DIR__ . '/../manifests/NewCommandClass.lock');
         $manifest = str_replace('#CLASS_NAME#', $className, $manifest);
