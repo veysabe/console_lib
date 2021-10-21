@@ -25,3 +25,8 @@ Feel free to create your own methods :) Just don't delete launch method.
 ### Passing arguments and parameters
 In order to pass an option to your function, when calling the command, write it as ```{option_name}```.
 To pass parameters, write them as ```[parameter=value]```. A multiple value for the parameter is also accepted. To do this, write them in the form ```[parameter={value1,value2,value3}]```
+
+For example:
+```
+php app.php command_name {option} [name=Name] [description={"Here is some description","Have fun"}] {option2}
+```
